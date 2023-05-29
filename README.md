@@ -1,4 +1,4 @@
-# [Effective Self-supervised Pre-training on Low-compute networks without Distillation](https://arxiv.org/abs/2103.12236)
+# [Effective Self-supervised Pre-training on Low-compute networks without Distillation](https://openreview.net/forum?id=cbpRzMy-UZH)
 Fuwen Tan, Fatemeh Saleh, Brais Martinez, ICLR 2023.
 
 ## Abstract
