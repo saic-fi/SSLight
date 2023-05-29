@@ -1,9 +1,10 @@
 import torch, torchvision
 from torch import nn
-import torchvision.models as tch_models
 from copy import deepcopy
 from sslight.utils.pthflops import count_ops
 from sslight.utils.param_utils import trunc_normal_
+from sslight.backbone.mnv2 import mobilenet_v2
+from sslight.backbone.resnet import *
 
 
 class BACKBONE(nn.Module):
@@ -11,16 +12,17 @@ class BACKBONE(nn.Module):
         super(BACKBONE, self).__init__()
         self.cfg = cfg
         self.arch = cfg.MODEL.BACKBONE_ARCH
-        base_encoder = tch_models.__dict__[self.arch]()
+        if self.arch not in ['mobilenet_v2', 'resnet18', 'resnet34', 'resnet50']:
+            assert False, f"Unsupported architecture: {self.arch}"
         if 'resnet' in self.arch:
+            base_encoder = globals()[self.arch]()
             self.encoder = nn.Sequential(*list(base_encoder.children())[:-2])
             self.out_channels = base_encoder.fc.in_features
-        elif 'mobilenet' in self.arch:
-            self.encoder = deepcopy(base_encoder.features)
-            self.out_channels = base_encoder.last_channel
-        else:
-            assert False, f"Unsupported architecture: {self.arch}"
-
+        else: # 'mobilenet' in self.arch:
+            base_encoder = mobilenet_v2()
+            self.encoder = base_encoder
+            self.out_channels = base_encoder[-1].out_channels
+            
         gflops, _ = count_ops(self.encoder, torch.rand(1,3,224,224), print_readable=False)
         print('GFLOPS of the backbone:', gflops/1e+9)
 

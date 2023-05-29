@@ -1,6 +1,5 @@
 import torch
 import torch.nn as nn
-import torchvision.models as tch_models
 
 from copy import deepcopy
 import sslight.backbone.vision_transformer as vits
@@ -61,7 +60,7 @@ class DINO(nn.Module):
             self.student = vits.__dict__[self.arch](patch_size=cfg.VIT.PATCH_SIZE, drop_path_rate=cfg.VIT.DROP_PATH_RATE)
             self.teacher = vits.__dict__[self.arch](patch_size=cfg.VIT.PATCH_SIZE,)
             self.embed_dim = self.student.embed_dim
-        elif self.arch in tch_models.__dict__.keys():
+        elif self.arch in ['mobilenet_v2', 'resnet18', 'resnet34', 'resnet50']:
             encoder = BACKBONE(cfg)
             self.embed_dim = encoder.out_channels
             self.student = deepcopy(encoder)

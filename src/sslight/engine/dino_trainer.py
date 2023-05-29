@@ -43,7 +43,7 @@ class DINOTrainer(Trainer):
                 param_group["lr"] = self.lr_schedule[self.steps]
                 if j == 0:
                     param_group["weight_decay"] = self.wd_schedule[self.steps]
-                elif num_param_groups > 2 and j == 1: # depthwise conv
+                else:
                     param_group["weight_decay"] = self.wd_schedule[self.steps] * param_group["wd_factor"]
             
             # forward
