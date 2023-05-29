@@ -22,7 +22,7 @@ This repo supports pre-training [DINO|SwAV|MoCo] with [MobileNet V2|ResNets|ViTs
   python3 main.py --cfg config/exp_yamls/dino/dino_cnn_sslight.yaml DATA.PATH_TO_DATA_DIR $IN1K_PATH OUTPUT_DIR $OUTPUT_PATH
 ```
 
-To estimate the feature quality during pre-training, we can train an extra linear classifier on top of the detached features such that the gradient from this linear classifier would not contaminate feature learning:
+In order to assess the quality of features during pre-training, an additional linear classifier can be trained on the separated features. This ensures that the gradient from the linear classifier does not interfere with the feature learning process:
 
 ```
   python3 main.py --cfg config/exp_yamls/dino/dino_cnn_sslight.yaml DATA.PATH_TO_DATA_DIR $IN1K_PATH OUTPUT_DIR $OUTPUT_PATH TRAIN.JOINT_LINEAR_PROBE True
