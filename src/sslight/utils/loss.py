@@ -167,18 +167,21 @@ class SWAVLoss(nn.Module):
         return Q.t()
 
 
-class MoCoLoss(nn.Module):
+class MOCOLoss(nn.Module):
     def __init__(self, cfg, gpu):
         super().__init__()
         self.cfg = cfg
         self.criterion = nn.CrossEntropyLoss(reduction='none').cuda(gpu)
     
-    def forward(self, logits, labels, boxes):
+    def forward(self, logits, labels):
         if self.cfg.MOCO.GLOBAL_ONLY:
             loss = self.criterion(logits, labels)
             return loss.mean()
         else:
             num_local_crops = self.cfg.MULTI_VIEWS_TRANSFORMS.NMB_CROPS[1]
+            # num_queries = logits.size(0)
+            # batch_size = num_queries // (num_local_crops + 1)
+            # assert(num_queries % (num_local_crops + 1) == 0)
 
             logits = logits.chunk(num_local_crops + 1)
             labels = labels.chunk(num_local_crops + 1)

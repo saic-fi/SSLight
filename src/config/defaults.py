@@ -171,7 +171,7 @@ _C.SWAV.USE_BN_IN_HEAD = True
 # ---------------------------------------------------------------------------- #
 _C.MOCO = CfgNode()
 
-_C.MOCO.TEMPERATURE = 0.02
+_C.MOCO.TEMPERATURE = 0.2
 
 _C.MOCO.GLOBAL_ONLY = False 
 

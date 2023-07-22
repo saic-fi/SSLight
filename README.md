@@ -1,4 +1,4 @@
-# [Effective Self-supervised Pre-training on Low-compute networks without Distillation](https://openreview.net/forum?id=cbpRzMy-UZH)
+# [Effective Self-supervised Pre-training on Low-compute networks without Distillation](https://arxiv.org/abs/2210.02808)
 Fuwen Tan, Fatemeh Saleh, Brais Martinez, ICLR 2023.
 
 ## Abstract
@@ -22,11 +22,13 @@ This repo supports pre-training [DINO|SwAV|MoCo] with [MobileNet V2|ResNets|ViTs
   python3 main.py --cfg config/exp_yamls/dino/dino_cnn_sslight.yaml DATA.PATH_TO_DATA_DIR $IN1K_PATH OUTPUT_DIR $OUTPUT_PATH
 ```
 
-In order to assess the quality of features during pre-training, an additional linear classifier can be trained on the separated features. This ensures that the gradient from the linear classifier does not interfere with the feature learning process:
+To assess the quality of features during pre-training, an additional linear classifier can be trained on the separated features. This ensures that the gradient from the linear classifier does not interfere with the feature learning process:
 
 ```
   python3 main.py --cfg config/exp_yamls/dino/dino_cnn_sslight.yaml DATA.PATH_TO_DATA_DIR $IN1K_PATH OUTPUT_DIR $OUTPUT_PATH TRAIN.JOINT_LINEAR_PROBE True
 ```
+
+Note that the accuracy of this extra classifier is typically lower than a standard linear probing evaluation.
 
 The table below includes the scripts for specific pre-training experiments:
 
@@ -38,54 +40,91 @@ The table below includes the scripts for specific pre-training experiments:
 <th valign="bottom">Backbone</th>
 <th valign="bottom">IN1K Linear Accu.</th>
 <th valign="bottom">Training</th>  
+<th valign="bottom">Log (re-trained)</th>
 <!-- TABLE BODY -->
 <tr>
       <td align="left">DINO baseline</td>
       <td align="center">MobileNet V2</td>
       <td align="center">66.2</td>
       <td align="center"><a href=src/experiments/dino/mnv2/baseline.sh>script</a></td>
+      <td align="center"><a href=src/experiments/dino/mnv2/baseline.log>log</a></td>
 </tr>
 <tr>
       <td align="left">DINO SSLight</td>
       <td align="center">MobileNet V2</td>
       <td align="center">68.3 (+2.1)</td>
       <td align="center"><a href=src/experiments/dino/mnv2/sslight.sh>script</a></td>
+      <td align="center"><a href=src/experiments/dino/mnv2/sslight.log>log</a></td>
 </tr>
 <tr>
       <td align="left">DINO baseline</td>
       <td align="center">ResNet18</td>
       <td align="center">62.2</td>
       <td align="center"><a href=src/experiments/dino/resnet18/baseline.sh>script</a></td>
+      <td align="center"><a href=src/experiments/dino/resnet18/baseline.log>log</a></td>
 </tr>
 <tr>
       <td align="left">DINO SSLight</td>
       <td align="center">ResNet18</td>
       <td align="center">65.7 (+3.5)</td>
       <td align="center"><a href=src/experiments/dino/resnet18/sslight.sh>script</a></td>
+      <td align="center"><a href=src/experiments/dino/resnet18/sslight.log>log</a></td>
 </tr>
 <tr>
       <td align="left">DINO baseline</td>
       <td align="center">ResNet34</td>
       <td align="center">67.7</td>
       <td align="center"><a href=src/experiments/dino/resnet34/baseline.sh>script</a></td>
+      <td align="center"><a href=src/experiments/dino/resnet34/baseline.log>log</a></td>
 </tr>
 <tr>
       <td align="left">DINO SSLight</td>
       <td align="center">ResNet34</td>
       <td align="center">69.7 (+2.0)</td>
       <td align="center"><a href=src/experiments/dino/resnet34/sslight.sh>script</a></td>
+      <td align="center"><a href=src/experiments/dino/resnet34/sslight.log>log</a></td>
 </tr>
 <tr>
       <td align="left">DINO baseline</td>
       <td align="center">ViT-Tiny/16</td>
       <td align="center">66.7</td>
       <td align="center"><a href=src/experiments/dino/vit_tiny_16/baseline.sh>script</a></td>
+      <td align="center"><a href=src/experiments/dino/vit_tiny_16/baseline.log>log</a></td>
 </tr>
 <tr>
       <td align="left">DINO SSLight</td>
       <td align="center">ViT-Tiny/16</td>
       <td align="center">69.5 (+2.8)</td>
       <td align="center"><a href=src/experiments/dino/vit_tiny_16/sslight.sh>script</a></td>
+      <td align="center"><a href=src/experiments/dino/vit_tiny_16/sslight.log>log</a></td>
+</tr>
+<tr>
+      <td align="left">SWAV baseline</td>
+      <td align="center">MobileNet V2</td>
+      <td align="center">65.2</td>
+      <td align="center"><a href=src/experiments/swav/mnv2/baseline.sh>script</a></td>
+      <td align="center"><a href=src/experiments/swav/mnv2/baseline.log>log</a></td>
+</tr>
+<tr>
+      <td align="left">SWAV SSLight</td>
+      <td align="center">MobileNet V2</td>
+      <td align="center">67.3 (+2.1)</td>
+      <td align="center"><a href=src/experiments/swav/mnv2/sslight.sh>script</a></td>
+      <td align="center"><a href=src/experiments/swav/mnv2/sslight.log>log</a></td>
+</tr>
+<tr>
+      <td align="left">MoCo baseline</td>
+      <td align="center">MobileNet V2</td>
+      <td align="center">60.6 </td>
+      <td align="center"><a href=src/experiments/moco/mnv2/baseline.sh>script</a></td>
+      <td align="center"><a href=src/experiments/moco/mnv2/baseline.log>log</a></td>
+</tr>
+<tr>
+      <td align="left">MoCo SSLight</td>
+      <td align="center">MobileNet V2</td>
+      <td align="center">61.6 (+1.0)</td>
+      <td align="center"><a href=src/experiments/moco/mnv2/sslight.sh>script</a></td>
+      <td align="center"><a href=src/experiments/moco/mnv2/sslight.log>log</a></td>
 </tr>
 </tbody></table> 
 

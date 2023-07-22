@@ -174,4 +174,4 @@ class TwoCropsDataAugmentation(object):
 
 DataAugmentationSWAV = MultiCropsDataAugmentation
 DataAugmentationDINO = MultiCropsDataAugmentation
-DataAugmentationMoCo = MultiCropsDataAugmentation
+DataAugmentationMOCO = MultiCropsDataAugmentation

@@ -1,0 +1,1 @@
+python3 main.py --cfg config/exp_yamls/moco/moco_cnn_baseline.yaml MODEL.BACKBONE_ARCH mobilenet_v2 DATA.PATH_TO_DATA_DIR $IN1K_PATH OUTPUT_DIR $OUTPUT_PATH TRAIN.JOINT_LINEAR_PROBE True
