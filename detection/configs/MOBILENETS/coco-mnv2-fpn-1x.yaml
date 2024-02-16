@@ -1,0 +1,23 @@
+_BASE_: "../Base-MobileNet-FPN.yaml"
+MODEL:
+  MASK_ON: True
+  BACKBONE:
+    FREEZE_AT: 0
+  MOBILENET:
+    NORM: "SyncBN"
+    VERSION: 'v2'
+    LAST_CHANNELS: 1280
+    PRETRAIN_METHOD: ''
+    PRETRAINED_WEIGHT: ''
+DATASETS:
+  TRAIN: ("coco_2017_train",)
+  TEST: ("coco_2017_val",)
+INPUT:
+  MIN_SIZE_TRAIN: (640, 672, 704, 736, 768, 800)
+  MIN_SIZE_TEST: 800
+SOLVER:
+  IMS_PER_BATCH: 16
+  BASE_LR: 0.02
+  STEPS: (60000, 80000)
+  MAX_ITER: 90000
+OUTPUT_DIR: './logs/coco-mnv2-fpn-1x'

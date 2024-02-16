@@ -1,0 +1,14 @@
+MODEL:
+  META_ARCHITECTURE: "GeneralizedRCNN"
+  RPN:
+    PRE_NMS_TOPK_TEST: 6000
+    POST_NMS_TOPK_TEST: 1000
+  BACKBONE:
+    NAME: "build_mobilenet_backbone"
+    FREEZE_AT: 0
+  MOBILENET:
+    NORM: "SyncBN"
+  RPN:
+    IN_FEATURES: ["stage4"]
+  ROI_HEADS:
+    IN_FEATURES: ["stage4"]

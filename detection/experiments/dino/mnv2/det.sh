@@ -1,0 +1,1 @@
+cd detection && python train_net.py --config-file configs/MOBILENETS/coco-mnv2-fpn-1x.yaml --num-gpus 8  MODEL.MASK_ON False OUTPUT_DIR $OUTPUT_PATH

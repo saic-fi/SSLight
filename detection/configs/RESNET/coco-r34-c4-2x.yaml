@@ -1,0 +1,23 @@
+_BASE_: "../Base-RCNN-C4-BN.yaml"
+MODEL:
+  PIXEL_MEAN: [123.675, 116.280, 103.530]
+  PIXEL_STD: [58.395, 57.120, 57.375]
+  MASK_ON: True
+  WEIGHTS: "" #"detectron2://ImageNetPretrained/MSRA/R-50.pkl"
+  RESNETS:
+    DEPTH: 34
+    RES2_OUT_CHANNELS: 64
+    STRIDE_IN_1X1: False
+INPUT:
+  FORMAT: "RGB"
+  MIN_SIZE_TRAIN: (640, 672, 704, 736, 768, 800)
+  MIN_SIZE_TEST: 800
+DATASETS:
+  TRAIN: ("coco_2017_train",)
+  TEST: ("coco_2017_val",)
+SOLVER:
+  STEPS: (120000, 160000)
+  MAX_ITER: 180000
+  IMS_PER_BATCH: 32 #16
+  BASE_LR: 0.02 #0.02
+OUTPUT_DIR: './logs/coco-r34-c4'

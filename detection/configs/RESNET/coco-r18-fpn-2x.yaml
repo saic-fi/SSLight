@@ -1,0 +1,19 @@
+_BASE_: "../Base-RCNN-FPN-BN.yaml"
+MODEL:
+  WEIGHTS: "" #"ckpts/d2_det/resnet18_detectron2.pkl"
+  MASK_ON: True
+  RESNETS:
+    DEPTH: 18
+    RES2_OUT_CHANNELS: 64
+DATASETS:
+  TRAIN: ("coco_2017_train",)
+  TEST: ("coco_2017_val",)
+INPUT:
+  MIN_SIZE_TRAIN: (640, 672, 704, 736, 768, 800)
+  MIN_SIZE_TEST: 800
+SOLVER:
+  IMS_PER_BATCH: 16
+  BASE_LR: 0.02
+  STEPS: (120000, 160000)
+  MAX_ITER: 180000
+OUTPUT_DIR: './logs/coco-r18-fpn-2x'

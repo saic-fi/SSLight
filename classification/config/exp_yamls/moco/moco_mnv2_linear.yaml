@@ -1,0 +1,49 @@
+TRAIN:
+  DATASET: imagenet1k
+  BATCH_SIZE: 512
+  FILE_NAME: "train.h5"
+  CHECKPOINT_PERIOD: 10
+  CHECKPOINT_FILE_PATH: ""
+  # SUBSET_FILE_PATH: 'data/imagenet_subsets/lin_train.txt'
+# VAL:
+#   DATASET: imagenet1k
+#   BATCH_SIZE: 512
+#   FILE_NAME: "train.h5"
+#   SUBSET_FILE_PATH: 'data/imagenet_subsets/lin_val.txt'
+VAL:
+  DATASET: imagenet1k
+  BATCH_SIZE: 512
+  FILE_NAME: "val.h5"
+DATA:
+  MEAN: [0.485, 0.456, 0.406]
+  STD: [0.229, 0.224, 0.225]
+  PATH_TO_DATA_DIR: "./datasets/imagenet1k/"
+MODEL:
+  BACKBONE_ARCH: mobilenet_v2
+  BACKBONE_WIDTH_MULT: 1.0
+  PRE_TRAINED_SUP: False
+  PRE_TRAINED_PATH: ""
+SOLVER:
+  OPTIMIZING_METHOD: LARS
+  WEIGHT_DECAY: 0.0
+  WEIGHT_DECAY_END: 0.0
+  TOTAL_EPOCHS: 100
+  WARMUP_EPOCHS: 0
+  BASE_LR: 0.05
+  MIN_LR: 1.0e-6
+  MOMENTUM: 0.9
+  CLIP_GRAD: 0.0
+LOG_STEP: 10
+# stage from [TRAIN, VAL, TEST, FT]
+SSL_METHOD: MOCO
+EVAL_METHOD: Linear
+STAGE: TRAIN 
+DISTRIBUTED: True
+SEED: 0
+DIST_BACKEND: 'nccl'
+N_NODES: 1
+WORLD_SIZE: 1
+NODE_RANK: 0
+DIST_URL: "env://"
+WORKERS: 8
+OUTPUT_DIR: ./logs/MOCO_MNV2_LIN

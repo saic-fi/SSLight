@@ -1,0 +1,1 @@
+cd sslight/classification && python3 main_cls.py --cfg config/exp_yamls/dino/dino_mnv2_linear.yaml DATA.PATH_TO_DATA_DIR $IN1K_PATH OUTPUT_DIR $OUTPUT_PATH MODEL.PRE_TRAINED_PATH $CKPT_PATH
